@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+    
+    <h1 class="main-heading">Привет, мир!</h1>
+    
+    <script>
+        
+        let friends = ["Юра", "Андрей", "Миша"];
+        for(let i = 0; i < friends.length; i++) {
+            $("body").append("<p>" + friends[i] + "</p>").hide(3000).fadeIn(10000);
+        }
+
+        $("p").append(" лучший!");
+        
+        $(".main-heading").text("Мои друзья!");
+
+    </script>
+
+</body>
+</html>
