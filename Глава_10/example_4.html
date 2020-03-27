@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <h1 class = "header">Привет, мир!</h1>
+
+    <script>
+// Доработайте упражнение #3 так, чтобы каждый раз, когда игрок кликает по заголовку, тот не останавливался, а ускорялся и кликнуть
+// по нему становилось сложнее. Отслеживайте количество кликов по заголовку и меняйте его текст, отображая там это число. 
+// Когда игрок наберет 10 кликов, остановите анимацию, а текст заголовка измените на «Вы победили!». 
+// Подсказка: чтобы ускорить движение, нужно будет отменить текущий вызов функции по интервалу, а потом задать новый, 
+// с меньшим временем повтора.
+
+    let direction = "right";
+    let offset = 0;
+    let intervalLength = 120;
+    let clicks = 0;
+
+    $(".header").offset({ left: offset, top: offset });
+
+    var moveHeading = function () {
+      if (direction === "right") {
+        $(".header").offset({ left: offset });
+        offset++;
+        if (offset > 200) {
+          offset = 0;
+          direction = "down";
+        }
+      } else if (direction === "down") {
+        $(".header").offset({ top: offset });
+        offset++;
+        if (offset > 200) {
+          offset = 200;
+          direction = "left";
+        }
+      } else if (direction === "left") {
+        $(".header").offset({ left: offset });
+        offset--;
+        if (offset < 0) {
+          offset = 200;
+          direction = "up";
+        }
+      } else if (direction === "up") {
+        $(".header").offset({ top: offset });
+        offset--;
+        if (offset < 0) {
+          offset = 0;
+          direction = "right";
+        }
+      }
+    };
+
+    let intervalId = setInterval(moveHeading, intervalLength);
+
+    $(".header").click(function () {
+      clearInterval(intervalId);
+      intervalLength /= 2;
+      clicks++;
+
+      if (clicks > 10) {
+        $(".header").text("Вы победили!");
+      } else {
+        intervalId = setInterval(moveHeading, intervalLength)
+      }
+    });
+
+    </script>
+
+</body>
+</html>

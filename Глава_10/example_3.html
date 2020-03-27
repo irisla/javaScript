@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <h1 class = "header">Привет, мир!</h1>
+
+    <script>
+
+// Доработайте упражнение #2: добавьте к двигающемуся элементу h1 обработчик клика, который останавливает анимацию. 
+// Подсказка: отменить запуск кода по интервалу можно функцией clearInterval.
+
+let direction = 'right';
+    let offset = 0;
+
+    $(".header").offset({ left: offset, top: offset });
+
+    function moveHeading() {
+      if (direction === 'right') {
+        $(".header").offset({ left: offset });
+        offset++;
+        if (offset > 200) {
+          offset = 0;
+          direction = 'down';
+        }
+      } else if (direction === 'down') {
+        $(".header").offset({ top: offset });
+        offset++;
+        if (offset > 200) {
+          offset = 200;
+          direction = 'left';
+        }
+      } else if (direction === 'left') {
+        $(".header").offset({ left: offset });
+        offset--;
+        if (offset < 0) {
+          offset = 200;
+          direction = 'up';
+        }
+      } else if (direction === 'up') {
+        $(".header").offset({ top: offset });
+        offset--;
+        if (offset < 0) {
+          offset = 0;
+          direction = 'right';
+        }
+      }
+    };
+
+    let intervalId = setInterval(moveHeading, 30);
+
+    $(".header").click(function () {
+      clearInterval(intervalId);
+    });
+
+    </script>
+
+
+</body>
+</html>
