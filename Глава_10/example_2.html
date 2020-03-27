@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <h1 class = "header">Привет, мир!</h1>
+
+    <script>
+
+// Используйте setInterval для анимации заголовка h1, двигая его по квадрату, вдоль краев страницы. Пусть он переместится 
+// на 200 пикселей вправо, на 200 пикселей вниз, 200 пикселей влево, 200 пикселей вверх, а затем начнет с начала. Подсказка: 
+// нужно запоминать текущее направление (вправо, вниз, влево или вверх), чтобы знать, увеличивать или уменьшать для заголовка
+// отступы слева (left) и сверху (top). Кроме того, при достижении угла квадрата нужно будет менять направление.
+
+    let direction = 'right';
+    let offset = 0;
+
+    $(".header").offset({ left: offset, top: offset });
+
+    function moveHeading() {
+      if (direction === 'right') {
+        $(".header").offset({ left: offset });
+        offset++;
+        if (offset > 200) {
+          offset = 0;
+          direction = 'down';
+        }
+      } else if (direction === 'down') {
+        $(".header").offset({ top: offset });
+        offset++;
+        if (offset > 200) {
+          offset = 200;
+          direction = 'left';
+        }
+      } else if (direction === 'left') {
+        $(".header").offset({ left: offset });
+        offset--;
+        if (offset < 0) {
+          offset = 200;
+          direction = 'up';
+        }
+      } else if (direction === 'up') {
+        $(".header").offset({ top: offset });
+        offset--;
+        if (offset < 0) {
+          offset = 0;
+          direction = 'right';
+        }
+      }
+    };
+
+    setInterval(moveHeading, 30);
+
+    </script>
+
+</body>
+</html>
