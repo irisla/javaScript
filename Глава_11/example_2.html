@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <title>Document</title>
+</head>
+<body>
+<!-- Создаем игру "Клад"     -->
+    <h1 class="heading">Найди клад!</h1>
+    
+    <img class="map" src="http://nostarch.com/images/treasuremap.png" alt="карта" width=400 height=400>
+
+    <p class="distance"></p>
+    <p class ="clicks-remaining"></p>   
+
+    <script>
+// Задача №3 
+// Установите ограничение количества кликов и показывайте игроку сообщение «КОНЕЦ ИГРЫ», если он превысит это ограничение.
+
+ // Получить случайное число от 0 до size-1
+   function getRandomNumber(size) {
+    return Math.floor(Math.random() * size);
+  };
+  // Вычислить расстояние от клика (event) до клада (target)
+   function getDistance(event, target) {
+    let diffX = event.offsetX - target.x;
+    let diffY = event.offsetY - target.y;
+    return Math.sqrt((diffX * diffX) + (diffY * diffY));
+  };
+  // Получить для расстояния строку подсказки
+   function getDistanceHint(distance) {
+    if (distance < 10) {
+      return "Обожжешься!";
+    } else if (distance < 20) {
+      return "Очень горячо";
+    } else if (distance < 40) {
+      return "Горячо";
+    } else if (distance < 80) {
+      return "Тепло";
+    } else if (distance < 160) {
+      return "Холодно";
+    } else if (distance < 320) {
+      return "Очень холодно";
+    } else {
+      return "Замерзнешь!";
+    }
+  };  
+
+   // Создаем переменные
+  let width = 400;
+  let height = 400;
+  let clicks = 0;
+  let clickLimit = 20;
+
+  // Случайная позиция клада
+   let target = {
+    x: getRandomNumber(width),
+    y: getRandomNumber(height)
+  };
+  // Добавляем элементу img обработчик клика
+  $(".map").click(function (event) {
+    clicks++;
+        if(clicks > clickLimit) {
+            alert("КОНЕЦ ИГРЫ! Вы превысили количество попыток!");
+            return;
+        }
+    // Получаем расстояние от места клика до клада
+     let distance = getDistance(event, target);
+    // Преобразуем расстояние в подсказку
+     let distanceHint = getDistanceHint(distance);
+    // Записываем в элемент .distance новую подсказку
+     $(".distance").text(distanceHint);
+
+    //Обновляем число оставшихся кликов и выводим счетчик кликов во втором <p>    
+    $(".clicks-remaining").text(clickLimit - clicks);
+
+    // Если клик был достаточно близко, поздравляем с победой
+    if (distance < 8) {
+      alert("Клад найден! Сделано кликов: " + clicks);
+    }
+  });
+
+    </script>
+
+</body>
+</html>
